@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        function getData() {
+            firebase.database().ref("natureProjects/").on("value", function (snapshot) {
+                dataRetrieved = snapshot.val();
+                for (const i in dataRetrieved) {
+                    var table = document.getElementById("rekklesTable");
+                    var row = table.insertRow(0);
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML =
+                        '<div id="postPreview"><h3 id="pProjectName">' +
+                        dataRetrieved[i].projectName + '</h3><h5 id="pSchoolInfo">' + dataRetrieved[i].school +
+                        ' </h5><br><p id="pProjectInfo" style="font-size: 1vw">' + dataRetrieved[i]
+                        .description +
+                        ' </p><br><img style="float-left" src="https://img-aws.ehowcdn.com/877x500p/photos.demandstudios.com/90/178/fotolia_3681330_XS.jpg" id="pProjectImage"></div><hr>';
+                }
+            });
+        }
+        getData();
+    </script>
+</head>
+
+<body>
+    <div id="rekklesAll">
+        <a href="index.html" id="styleLink" style="color: blue;margin-top:-5vh;">← Return to
+            Main Site</a>
+        <h1>Explore other student's YBC projects!</h1>
+        <p>Explore other student's YBC projects!</p>
+        <hr>
+        <table id="rekklesTable">
+
+        </table>
+    </div>
+</body>
+<style>
+    #styleLink:hover {
+        text-decoration: underline;
+    }
+
+    #rekklesAll {
+        margin: 5vw;
+        background-color: #b6f9f9;
+        padding: 2vw;
+        border-radius: 5vw;
+
+    }
+
+    #postPreview {
+        height: 65vh;
+    }
+</style>
+
+</html>

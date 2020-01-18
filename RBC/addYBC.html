@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+    #styleLink:hover {
+        text-decoration: underline;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="all">
+        <a href="index.html" id="styleLink" style="color: blue;margin-top:-5vh;">← Return to
+            Main Site</a>
+        <br><br>
+        <h1>Have your students created a YBC project? <br> Share it with us!</h1>
+        <form id="projectSubmit" onsubmit="return sendData()">
+            Project Name: <input type="text" name="projectName" placeholder="John's Appleseeds" required
+                onChange="updatePreview()"><br>
+            School Name: <input type="text" name="school" placeholder="School..." required
+                onChange="updatePreview()"><br>
+            Class Name: <input type="text" name="className" placeholder="Mrs. Smith's Grade 5s" required
+                onChange="updatePreview()"><br>
+            Student Count:
+            <input type="number" name="participantNumber" placeholder="1000..." onChange="updatePreview()"><br><br>
+            Project Target:<br>
+            <input type="radio" name="target" value="Plants" checked onChange="updatePreview()"> Plants<br>
+            <input type="radio" name="target" value="Animals" onChange="updatePreview()"> Animals<br>
+            <input type="radio" name="target" value="other" onChange="updatePreview()"> Both <br><br>
+            Project Description:<br><textarea id="projectDesc" type="text" name="description"
+                placeholder="Describe your project... Include any external links you may have!" rows="5" columns="60"
+                onChange="updatePreview()"></textarea><br><br>
+            <!-- Upload Image: <input type="url" name="image" placeholder="Put your image URL here..."
+                onChange="updatePreview()"><br> -->
+            Upload Image: <input type="file" name="image" onchange="loadFile(event)" accept="image/*"><br>
+            <br>
+            <h1>Post Preview:</h1>
+            <hr>
+            <div id="postPreview">
+                <img src="" id="pProjectImage">
+                <h3 id="pProjectName"></h3>
+                <h5 id="pSchoolInfo"></h5><br>
+                <p id="pProjectInfo" style="font-size: 1vw"></p>
+                <!--https://cdn.gearpatrol.com/wp-content/uploads/2019/01/10-Best-Indoor-Plants-Gear-Patrol-lead-full.jpg-->
+            </div>
+            <br><br>
+            <hr>
+            <br><br>
+            <input type="submit" value="Submit your YBC project for the world to see!"><br><br><br>
+        </form>
+    </div>
+</body>
+<script>
+    function updatePreview() {
+        document.getElementById("pProjectName").innerHTML = document.getElementById("projectSubmit").elements[
+            "projectName"].value;
+        document.getElementById("pSchoolInfo").innerHTML = document.getElementById("projectSubmit").elements[
+                "className"].value + " with a class of " + document.getElementById("projectSubmit").elements[
+                "participantNumber"].value + " students at " +
+            document.getElementById("projectSubmit").elements["school"].value;
+        document.getElementById("pProjectInfo").innerHTML = document.getElementById("projectDesc").value;
+        document.getElementById("pProjectImage").src = document.getElementById("image").value;
+
+    }
+
+    var loadFile = function (event) {
+        var output = document.getElementById('pProjectImage');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        document.getElementById("postPreview").style.height = "15vh";
+        document.getElementById("pProjectImage").style.marginRight = "2vw";
+    };
+</script>
+
+</html>
